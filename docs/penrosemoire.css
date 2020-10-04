@@ -2,6 +2,7 @@ body {
   --transform-x: 0;
   --transform-y: 0;
   --transform-r: 0;
+  position: relative;
 }
 
 header {
@@ -10,10 +11,12 @@ header {
 }
 
 #moire {
-  position: relative;
 }
+
 #card1 {
   position: absolute;
+  top: 0px;
+  left: 0px;
   transform: translate(calc(var(--transform-x)*1px),calc(var(--transform-y)*1px));
 }
 
@@ -23,4 +26,6 @@ header {
 
 #card2 {
   position: absolute;
+  top: 0px;
+  left: 0px;
 }

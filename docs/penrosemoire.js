@@ -1,3 +1,5 @@
+let body = document.getElementsByTagName("BODY")[0];
+
 function keydown(event) {
   switch(event.code) {
     case 'KeyW':
@@ -22,22 +24,50 @@ function keydown(event) {
 }
 
 function increaseCssVariable(variable) {
-  let body = document.getElementsByTagName("BODY")[0];
-  body.style.setProperty(
-    variable,
-    parseInt(getComputedStyle(body).getPropertyValue(variable))+1
-  );
+  let value = getCssVariable(variable)+1;
+  setCssVariableAndUpdateUrl(variable,value);
 }
 
 function decreaseCssVariable(variable) {
-  let body = document.getElementsByTagName("BODY")[0];
-  body.style.setProperty(
-    variable,
-    parseInt(getComputedStyle(body).getPropertyValue(variable))-1
-  );
+  let value = getCssVariable(variable)-1;
+  setCssVariableAndUpdateUrl(variable,value);
+}
+
+function setCssVariableAndUpdateUrl(variable, value) {
+  setCssVariable(variable,value);
+  let newUrl =
+    location.href.replace(/\?.*/,"")+
+    '?x='+getCssVariable('--transform-x')+
+    '?y='+getCssVariable('--transform-y')+
+    '?r='+getCssVariable('--transform-r');
+  window.history.replaceState({},document.title,newUrl);
+}
+
+function getCssVariable(variable) {
+  return parseInt(getComputedStyle(body).getPropertyValue(variable));
+}
+
+function setCssVariable(variable, value) {
+  body.style.setProperty(variable,value);
+}
+
+function processParameters() {
+  setCssVariable('--transform-x', parseInt(getUrlParameter('x')))
+  setCssVariable('--transform-y', parseInt(getUrlParameter('y')))
+  setCssVariable('--transform-r', parseInt(getUrlParameter('r')))
+}
+
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  let matches = regex.exec(location.search);
+  let text = matches === null ? '' : decodeURIComponent(matches[1].replace(/\+/g, ' '));
+  let value = parseInt(text) || 0;
+  return value;
 }
 
 function main() {
+  processParameters();
   document.onkeydown = keydown;
 }
 
