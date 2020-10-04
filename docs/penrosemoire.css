@@ -1,0 +1,26 @@
+body {
+  --transform-x: 0;
+  --transform-y: 0;
+  --transform-r: 0;
+}
+
+header {
+  word-wrap: break-word;
+  width: 800px;
+}
+
+#moire {
+  position: relative;
+}
+#card1 {
+  position: absolute;
+  transform: translate(calc(var(--transform-x)*1px),calc(var(--transform-y)*1px));
+}
+
+#rotate {
+  transform: rotate(calc(var(--transform-r)*1deg));
+}
+
+#card2 {
+  position: absolute;
+}
