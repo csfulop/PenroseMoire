@@ -23,6 +23,17 @@ function keydown(event) {
    }
 }
 
+function touchmove(event) {
+  console.log(event);
+  // If there's exactly one finger inside this element
+  if (event.targetTouches.length == 1) {
+    var touch = event.targetTouches[0];
+    // Place element where the finger is
+    setCssVariable('--transform-x',touch.pageX);
+    setCssVariable('--transform-y',touch.pageY);
+  }
+}
+
 function increaseCssVariable(variable) {
   let value = getCssVariable(variable)+1;
   setCssVariableAndUpdateUrl(variable,value);
@@ -69,6 +80,7 @@ function getUrlParameter(name) {
 function main() {
   processParameters();
   document.onkeydown = keydown;
+  document.ontouchmove = touchmove;
 }
 
 main();
