@@ -23,6 +23,22 @@ function keydown(event) {
    }
 }
 
+let startingTouch;
+
+function touchstart(event) {
+  if (event.targetTouches.length == 1) {
+    startingTouch = event.targetTouches[0];
+  }
+}
+
+function touchmove(event) {
+  if (event.targetTouches.length == 1) {
+    var touch = event.targetTouches[0];
+    setCssVariable('--transform-x',(startingTouch.pageX - touch.pageX)/10);
+    setCssVariable('--transform-y',(startingTouch.pageY - touch.pageY)/10);
+  }
+}
+
 function increaseCssVariable(variable) {
   let value = getCssVariable(variable)+1;
   setCssVariableAndUpdateUrl(variable,value);
@@ -69,6 +85,8 @@ function getUrlParameter(name) {
 function main() {
   processParameters();
   document.onkeydown = keydown;
+  document.ontouchmove = touchmove;
+  document.ontouchstart = touchstart;
 }
 
 main();
