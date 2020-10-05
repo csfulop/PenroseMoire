@@ -26,25 +26,25 @@ function keydown(event) {
 let startingTouch;
 
 function touchstart(event) {
-  if (event.targetTouches.length == 1) {
-    startingTouch = {
-      event:event.targetTouches[0],
-      x:getCssVariable('--transform-x'),
-      y:getCssVariable('--transform-y')
-    };
-  }
+  startingTouch = {
+    event: event.targetTouches[0],
+    x: getCssVariable('--transform-x'),
+    y: getCssVariable('--transform-y'),
+    r: getCssVariable('--transform-r')
+  };
 }
 
 function touchmove(event) {
-  if (event.targetTouches.length == 1) {
-    var touch = event.targetTouches[0];
-    setCssVariableAndUpdateUrl(
-      '--transform-x',
-      startingTouch.x + (touch.pageX - startingTouch.event.pageX)/10);
-    setCssVariableAndUpdateUrl(
-      '--transform-y',
-      startingTouch.y + (touch.pageY - startingTouch.event.pageY)/10);
-  }
+  let touch = event.targetTouches[0];
+  setCssVariableAndUpdateUrl(
+    '--transform-x',
+    startingTouch.x + (touch.pageX - startingTouch.event.pageX)/10);
+  setCssVariableAndUpdateUrl(
+    '--transform-y',
+    startingTouch.y + (touch.pageY - startingTouch.event.pageY)/10);
+  setCssVariableAndUpdateUrl(
+    '--transform-r',
+    startingTouch.r + event.rotationAngle);
 }
 
 function increaseCssVariable(variable) {
