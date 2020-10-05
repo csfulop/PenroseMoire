@@ -44,7 +44,7 @@ function touchmove(event) {
     startingTouch.y + (touch.pageY - startingTouch.event.pageY)/10);
   setCssVariableAndUpdateUrl(
     '--transform-r',
-    startingTouch.r + event.rotationAngle);
+    startingTouch.r + (touch.rotationAngle || touch.webkitRotationAngle || 0));
 }
 
 function increaseCssVariable(variable) {
