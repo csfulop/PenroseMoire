@@ -3,6 +3,7 @@ body {
   --transform-y: 0;
   --transform-r: 0;
   position: relative;
+  touch-action: pinch-zoom;
 }
 
 header {
