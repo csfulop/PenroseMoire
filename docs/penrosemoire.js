@@ -40,10 +40,10 @@ function touchmove(event) {
     var touch = event.targetTouches[0];
     setCssVariableAndUpdateUrl(
       '--transform-x',
-      startingTouch.x + (startingTouch.event.pageX - touch.pageX)/10);
+      startingTouch.x + (touch.pageX - startingTouch.event.pageX)/10);
     setCssVariableAndUpdateUrl(
       '--transform-y',
-      startingTouch.y + (startingTouch.event.pageY - touch.pageY)/10);
+      startingTouch.y + (touch.pageY - startingTouch.event.pageY)/10);
   }
 }
 
