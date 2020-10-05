@@ -27,15 +27,23 @@ let startingTouch;
 
 function touchstart(event) {
   if (event.targetTouches.length == 1) {
-    startingTouch = event.targetTouches[0];
+    startingTouch = {
+      event:event.targetTouches[0],
+      x:getCssVariable('--transform-x'),
+      y:getCssVariable('--transform-y')
+    };
   }
 }
 
 function touchmove(event) {
   if (event.targetTouches.length == 1) {
     var touch = event.targetTouches[0];
-    setCssVariable('--transform-x',(startingTouch.pageX - touch.pageX)/10);
-    setCssVariable('--transform-y',(startingTouch.pageY - touch.pageY)/10);
+    setCssVariableAndUpdateUrl(
+      '--transform-x',
+      startingTouch.x + (startingTouch.event.pageX - touch.pageX)/10);
+    setCssVariableAndUpdateUrl(
+      '--transform-y',
+      startingTouch.y + (startingTouch.event.pageY - touch.pageY)/10);
   }
 }
 
